@@ -9,27 +9,29 @@
         <div class="col-md-12">
             <div class="card border-0 shadow-sm rounded-md mt-3">
                 <div class="card-body">
+                    <h2>Form {{ $table_name }}</h2>
                     {{-- {{ $table }} --}}
+                    <hr>
                      <a href="javascript:void(0)" class="btn btn-success btn-sm mb-3" id="btn-create-post">Add Column</a>
                     <table class="table table-bordered table-striped">
                         <thead class=thead-dark>
-                        <th>Aksi</th>
                         @foreach ($title as $index => $t )
                             {{-- <td>{{ $form->count() * ($form->currentPage() -1) + $loop->iteration }}</td> --}}
                             <th>{{ $t->field_description }}</th>
                         @endforeach
-                            
+
+                        <th>Aksi</th>
                         </thead>
 
                         <tbody>
                         
                         @foreach ($form as $f)
                         <tr>
-                        <td><a href="javascript:void(0)" id="btn-edit-post" data-id="{{ $f->id }}" class="btn btn-primary btn-sm">EDIT</a></td>
                             @foreach ($title as $t)
                                 <?php $fields = $t->field_name; ?>
                                 <td>{{ $f->$fields }}</td>
                             @endforeach
+                            <td><a href="" id="btn-edit-post" data-toggle="modal" data-target="#modal-editRecord" selected_id="{{ $f->id }}" table_name="{{ $table_name }}" class="btn btn-primary btn-sm">EDIT</a></td>
                         </tr>
                         @endforeach
 

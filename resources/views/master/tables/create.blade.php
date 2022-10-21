@@ -11,10 +11,23 @@
         <div class="card-header">New Table</div>
 
         <div class="card-body">
-        
+
             <form action="{{ route('master.tables.create') }}" method="post">
 
             @csrf
+
+            <div class="form-group">
+
+                <label for="name">Select Database</label>
+                <select class="form-control" id="table_group" name="table_group">
+                    @foreach($group as $index => $g)
+                        <option value="{{ $g->name }}">{{ $g->description }}</option>
+                    @endforeach
+                </select>
+
+            </div>
+
+            <br>
 
             <div class="form-group">
 

@@ -11,7 +11,7 @@
         <div class="card-header">New Table</div>
 
         <div class="card-body">
-        
+
             <form action="{{ route('master.tables.create') }}" method="post">
 
             @csrf

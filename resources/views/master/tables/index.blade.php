@@ -9,7 +9,12 @@
         <div class="col-md-12">
             <div class="card border-0 shadow-sm rounded-md mt-3">
                 <div class="card-body">
-
+                    <select class="form-control" id="type" name="user_id">
+                        @foreach($group as $index => $g)
+                            <option value="{{ $g->name }}">{{ $g->description }}</option>
+                        @endforeach
+                    </select>
+                    <br>
                     <table class="table table-bordered table-striped">
                         <thead class="thead-dark">
 

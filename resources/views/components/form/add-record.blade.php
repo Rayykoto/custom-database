@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-editRecord" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-addRecord" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,25 +8,23 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="field_data_edit" class="container-fluid" action="{{ route('master.forms.update') }}" method="post">
-                    @csrf
-                    <input type="text" class="control-label" name="table" value="{{ $table }}" />
-                    <input type="text" class="control-label" name="data_id" />
-                    @foreach ($title as $t )
+                <form id="field_data_edit" class="container-fluid" action="" method="post">
+                @foreach ($title as $t )
                         <div class="form-group">
-                        <label for="name" class="control-label">{{ $t->field_description }}</label>
-                        <?php $fields = $t->field_name; ?>
-                        <input type="text" class="form-control" name="{{ $t->field_name }}" id="{{ $t->field_name }}" value="{{ $t->field_description }}">
+                    <label for="name" class="control-label">{{ $t->field_description }}</label>
 
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-title-edit"></div>
-                        </div>
-                    @endforeach
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" >UPDATE</button>
-                    </div>
+                     <?php $fields = $t->field_name; ?>
+                    <input type="text" class="form-control" name="{{ $t->field_name }}" id="{{ $t->field_name }}" value="{{ $t->field_description }}">
+
+                    <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-title-edit"></div>
+                </div>
+
+                @endforeach
                 </form>
             </div>
-            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="update">UPDATE</button>
+            </div>
         </div>
     </div>
 </div>
@@ -38,7 +36,7 @@
 ?>
 <script>
 $(document).ready(function() {
-  $('#modal-editRecord').on('show.bs.modal', function (e) {
+  $('#modal-edit').on('show.bs.modal', function (e) {
     var addressPoints = <?php echo json_encode($addressPoints); ?>;
     var table_data    = <?php echo json_encode($table_data); ?>;
     console.log(table_data);

@@ -8,27 +8,35 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class FormController extends Controller
 {
     public function index()
     { 
         return view('master.forms.index', [
-           'forms' => DB::table('master_tables')->latest()->paginate(10)
+            'group' => DB::table('master_tablegroup')->get(),
+            'forms' => DB::table('master_tables')->latest()->paginate(10)
         ]);
     }
 
     public function create()
     {
-        return view('master.forms.create');
+        return view('master.forms.create',[
+            'group' => DB::table('master_tablegroup')->get(),
+        ]);
     }
 
     public function edit(Request $request, $name)
     {
+        $select = DB::table('master_tables')->where('name',$name)->first();
+        $table_name = $select->description;
         return view('master.forms.edit', [
-        'table' => $name,
-        'title' => DB::table($name.'_description')->get(),
-        'form' => DB::table($name)->get()
+            'group'         => DB::table('master_tablegroup')->get(),
+            'table'         => $name,
+            'table_name'    => $table_name,
+            'title'         => DB::table($name.'_description')->get(),
+            'form'          => DB::table($name)->get()
         ]);
     }
 
@@ -60,10 +68,53 @@ class FormController extends Controller
         ]); 
     }
 
-    public function update($name)
+    public function get_tables($group)
     {
-        $value = DB::table($name)->get();
-        
-        dd($value);
+        $forms = DB::table('master_tables')->where('group',$group)->latest()->paginate(10);
+        //dd($forms);
+        $i = 1;
+        $data = '';
+        $data .= '<thead class="thead-dark"><tr><th>#</th><!-- <th>Name</th> --><th>Table Name</th><th>Tanggal Dibuat</th><th>Tanggal Diupdate</th><th>Aksi</th></tr></thead><tbody>';
+
+        foreach ($forms as $form ){
+        $data .=
+            '<tr>
+
+                <td>'.$i.'</td>
+                <td>'.$form->description.'</td>
+                <td>'.$form->created_at.'</td>
+                <td>'.$form->updated_at.'</td>
+                <td>
+                    <a href="'.route('master.forms.edit', $form->name).'" class="btn btn-primary btn-sm">Detail</a>
+                </td>
+
+            </tr>';
+        }
+
+        $data .= '</tbody>';
+        return $data;
+    }
+
+    public function update(Request $request)
+    {
+		$table			= $request->table;
+		$edit_id		= $request->data_id;
+		$table_desc		= $table."_description";
+		$table_head		= DB::select(DB::raw("SELECT * FROM ".$table_desc." where is_show = '1';"));
+		$select_field	= '';
+		if ($table_head > 0){
+			foreach ($table_head as $t){
+                $fields = $t->field_name;
+				$select_field .= $t->field_name.'="'.$request->$fields.'",';
+				//$values .= '"'.$this->input->post($t->field_name).'",';
+			}
+			$selected = substr($select_field, 0,-1	);
+			//$insert_value = substr($values, 0,-1	);
+		}
+		$insert = DB::statement("UPDATE $table SET $selected WHERE id='$edit_id';");
+		//var_dump($insert);
+		if($insert){
+			return back()->with('success', 'Data Edited');
+		}
     }
 }

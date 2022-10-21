@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterTablesTable extends Migration
+class CreateMasterRelation extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateMasterTablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_tables', function (Blueprint $table) {
+        Schema::create('master_relation', function (Blueprint $table) {
             $table->id();
-            $table->string('group')->index();
-            $table->string('name');
-            $table->string('description');
+            $table->string('table_name_from');
+            $table->string('field_from');
+            $table->string('table_name_to');
+            $table->string('refer_to');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-
-            $table->foreign('group')->references('name')->on('master_tablegroup');
         });
     }
 
@@ -32,6 +31,6 @@ class CreateMasterTablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_tables');
+        Schema::dropIfExists('master_relation');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterTablesTable extends Migration
+class CreateMasterDatatype extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateMasterTablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_tables', function (Blueprint $table) {
+        Schema::create('master_datatype', function (Blueprint $table) {
             $table->id();
-            $table->string('group')->index();
             $table->string('name');
-            $table->string('description');
+            $table->string('data_type');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-
-            $table->foreign('group')->references('name')->on('master_tablegroup');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateMasterTablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_tables');
+        Schema::dropIfExists('master_datatype');
     }
 }
