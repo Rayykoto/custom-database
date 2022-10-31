@@ -14,6 +14,13 @@
 
   <small class="text-secondary d-block mb-0">Master</small>
 
+    {{-- <div class="list-group mb-2">
+
+      <a class="list-group-item" href="#" style="background:blue;color:white;" id="new_database"  data-toggle="modal" data-target="#modal-newdatabase">
+        New Database
+      </a>
+    </div> --}}
+
     <div class="list-group">
 
       <a class="list-group-item list-group-item-action dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

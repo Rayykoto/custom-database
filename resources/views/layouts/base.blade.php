@@ -15,12 +15,39 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
 </head>
 <body>
+
+<style>
+.b {
+    min-width: 200px;
+    width: 250px;
+    max-width: 300px;
+}
+hr.hr-2 {
+  border: 2px solid black;
+  /* border-radius: 5px; */
+}
+hr.hr-3 {
+  border: 3px solid black;
+  /* border-radius: 5px; */
+}
+hr.hr-4 {
+  border: 4px solid black;
+  /* border-radius: 5px; */
+}
+hr.hr-5 {
+  border: 5px solid black;
+  /* border-radius: 5px; */
+}
+</style>
 
     @yield('body')
 

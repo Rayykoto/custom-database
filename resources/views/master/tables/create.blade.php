@@ -8,7 +8,7 @@
 
     <div class="card">
 
-        <div class="card-header">New Table</div>
+        <div class="card-header">New Table/Forms</div>
 
         <div class="card-body">
 
@@ -20,6 +20,7 @@
 
                 <label for="name">Select Database</label>
                 <select class="form-control" id="table_group" name="table_group">
+                    <option value="">Select Databases</option>
                     @foreach($group as $index => $g)
                         <option value="{{ $g->name }}">{{ $g->description }}</option>
                     @endforeach

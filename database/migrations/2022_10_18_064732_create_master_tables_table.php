@@ -15,9 +15,10 @@ class CreateMasterTablesTable extends Migration
     {
         Schema::create('master_tables', function (Blueprint $table) {
             $table->id();
-            $table->string('group')->index();
+            $table->string('group');
             $table->string('name');
             $table->string('description');
+            $table->string('is_show',2);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 

@@ -17,6 +17,7 @@ class CreateMasterTablegroup extends Migration
             $table->id();
             $table->string('name')->index();
             $table->string('description');
+            $table->string('is_show',2);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

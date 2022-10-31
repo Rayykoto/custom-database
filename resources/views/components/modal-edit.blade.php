@@ -10,13 +10,37 @@
             <div class="modal-body">
                 <form id="field_data_edit" class="container-fluid" action="{{ route('master.forms.update') }}" method="post">
                     @csrf
-                    <input type="text" class="control-label" name="table" value="{{ $table }}" />
-                    <input type="text" class="control-label" name="data_id" />
+                    <input type="hidden" class="control-label" name="table" value="{{ $table }}" />
+                    <input type="hidden" class="control-label" name="data_id" />
                     @foreach ($title as $t )
                         <div class="form-group">
-                        <label for="name" class="control-label">{{ $t->field_description }}</label>
+                            <?php 
+                                $input_type = "";
+                                    switch ($t->data_type) {
+                                        case "VARCHAR(255)":
+                                            $input_type = '<label for="name" class="control-label">'.$t->field_description.'</label><input type="text" value="'.$t->field_description.'" name="'.$t->field_name.'" id="'.$t->field_name.'" class="form-control form-control-user" ><br>';
+                                            break;
+                                        case "TEXT":
+                                            $input_type = '<label for="name" class="control-label">'.$t->field_description.'</label><textarea name="'.$t->field_name.'" id="'.$t->field_name.'" class="form-control form-control-user" >'.$t->field_description.'</textarea><br>';
+                                            break;
+                                        case "BIGINT(20)":
+                                            $input_type = '<label for="name" class="control-label">'.$t->field_description.'</label><input type="number" name="'.$t->field_name.'" value="'.$t->field_description.'" id="'.$t->field_name.'" class="form-control form-control-user" ><br>';
+                                            break;
+                                        case "TIME":
+                                            $input_type = '<label for="name" class="control-label">'.$t->field_description.'</label><input type="time" name="'.$t->field_name.'" value="'.$t->field_description.'" id="'.$t->field_name.'" class="form-control form-control-user" ><br>';
+                                            break;
+                                        case "DATE":
+                                            $input_type = '<label for="name" class="control-label">'.$t->field_description.'</label><input type="date" name="'.$t->field_name.'" value="'.$t->field_description.'" id="'.$t->field_name.'" class="form-control form-control-user" ><br>';
+                                            break;
+                                        case "TIMESTAMP":
+                                            $input_type = '<label for="name" class="control-label">'.$t->field_description.'</label><input type="text" name="'.$t->field_name.'" value="'.$t->field_description.'" id="'.$t->field_name.'" class="form-control form-control-user" ><br>';
+                                            break;
+                                    }
+                                    ?>
+                                <label >{{ $t->field_description }}</label>
+                                <?php echo $input_type; ?>
                         <?php $fields = $t->field_name; ?>
-                        <input type="text" class="form-control" name="{{ $t->field_name }}" id="{{ $t->field_name }}" value="{{ $t->field_description }}">
+                        {{-- <input type="text" class="form-control" name="{{ $t->field_name }}" id="{{ $t->field_name }}" value="{{ $t->field_description }}"> --}}
 
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-title-edit"></div>
                         </div>
@@ -41,13 +65,13 @@ $(document).ready(function() {
   $('#modal-editRecord').on('show.bs.modal', function (e) {
     var addressPoints = <?php echo json_encode($addressPoints); ?>;
     var table_data    = <?php echo json_encode($table_data); ?>;
-    console.log(table_data);
-    console.log(addressPoints);
+    // console.log(table_data);
+    // console.log(addressPoints);
 	  // get information to update quickly to modal view as loading begins
     var opener=e.relatedTarget;//this holds the element who called the modal
     //we get details from attributes
     var data_id       = $(opener).attr('selected_id');
-    console.log(data_id);
+    // console.log(data_id);
     $('#field_data_edit').find('[name="data_id"]').val(data_id);
     for (var j = 0; j < addressPoints.length; j++) {
       var b = addressPoints[j];

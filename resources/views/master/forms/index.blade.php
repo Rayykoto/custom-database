@@ -9,7 +9,9 @@
         <div class="col-md-12">
             <div class="card border-0 shadow-sm rounded-md mt-3">
                 <div class="card-body">
+                    <h2>Select Database</h2>
                     <select class="form-control" id="formindex_froup" name="formindex_froup">
+                        <option value="">Select Databases</option>
                         @foreach($group as $index => $g)
                             <option value="{{ $g->name }}">{{ $g->description }}</option>
                         @endforeach
